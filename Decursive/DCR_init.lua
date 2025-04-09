@@ -142,6 +142,7 @@ DC.POISON       = 8;
 DC.DISEASE      = 16;
 DC.CHARMED      = 32;
 DC.NOTYPE       = 64;
+DC.BLEED        = 128;
 
 
 DC.NORMAL                   = 8;
@@ -314,6 +315,7 @@ function D:OnInitialize() -- Called on ADDON_LOADED -- {{{
         [DC.POISON]     = "Poison";
         [DC.DISEASE]    = "Disease";
         [DC.CHARMED]    = "Charm";
+        [DC.BLEED]      = "Bleeding";
     }
 
     DC.NameToTypes = D:tReverse(DC.TypeNames);
@@ -349,7 +351,51 @@ function D:OnInitialize() -- Called on ADDON_LOADED -- {{{
             IsBest = 0,
             Pet = false,
         }, --]]
-      
+        -- TEST
+       -- [DS["SPELL_stoneform"]]          = {
+        --    Types = {DC.BLEED},
+        --    IsBest = 1,
+        --    Pet = false,
+        --},
+        
+        -- WITCHDOCTOR
+        [DS["SPELL_ALLCURE_ELIXIR"]]          = {
+            Types = {DC.DISEASE,DC.POISON,DC.CURSE},
+            IsBest = 0,
+            Pet = false,
+        },
+        [DS["SPELL_MAGICBREAK"]]          = {
+            Types = {DC.MAGIC},
+            IsBest = 1,
+            Pet = false,
+        },
+        [DS["SPELL_PURIFY_WD"]]          = {
+            Types = {DC.CURSE},
+            IsBest = 1,
+            Pet = false,
+        },
+        -- RANGER
+        [DS["SPELL_SURVIVAL_POTION"]]          = {
+            Types = {DC.MAGIC,DC.POISON,DC.BLEED},
+            IsBest = 1,
+            Pet = false,
+        },
+        -- Suncleric
+        [DS["SPELL_SHATER_MAGIC"]]          = {
+            Types = {DC.MAGIC},
+            IsBest = 1,
+            Pet = false,
+        },
+        [DS["SPELL_SANCTIFY"]]          = {
+            Types = {DC.CURSE},
+            IsBest = 1,
+            Pet = false,
+        },
+        [DS["SPELL_BLIGHTBREAKER"]]          = {
+            Types = {DC.DISEASE, DC.POISON},
+            IsBest = 1,
+            Pet = false,
+        },        
         -- Priests
         [DS["SPELL_CURE_DISEASE"]]          = {
             Types = {DC.DISEASE},
@@ -1010,6 +1056,7 @@ function D:Configure() --{{{
     CuringSpells[DC.POISON]     = false;
     CuringSpells[DC.DISEASE]    = false;
     CuringSpells[DC.CHARMED]    = false;
+    CuringSpells[DC.BLEED]      = false;
 
     local Spell, spellName, Type, _;
     local GetSpellInfo = _G.GetSpellInfo;
@@ -1089,9 +1136,14 @@ function D:GetSpellsTranslations(FromDIAG)
     local GetSpellInfo = _G.GetSpellInfo;
 
     local Spells = {};
-
-
     Spells = {
+        ["SPELL_ALLCURE_ELIXIR"]        = {     804049 ,                                 }, -- witchdoctor
+        ["SPELL_MAGICBREAK"]            = {     520155 ,                                 }, -- witchdoctor
+        ["SPELL_PURIFY_WD"]             = {     704134 ,                                 }, -- witchdoctor
+        ["SPELL_SURVIVAL_POTION"]       = {     802839 ,                                 }, -- ranger
+        ["SPELL_BLIGHTBREAKER"]         = {     804050,                                  }, -- suncleric
+        ["SPELL_SANCTIFY"]              = {     524968,                                  }, -- suncleric
+        ["SPELL_SHATER_MAGIC"]          = {     804067,                                  }, -- suncleric
         ["SPELL_POLYMORPH"]             = {     118,                                     },
         ["SPELL_CYCLONE"]               = {     33786,                                   },
         ["SPELL_CURE_DISEASE"]          = {     528,                                     },

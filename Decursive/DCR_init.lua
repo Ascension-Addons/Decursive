@@ -667,7 +667,6 @@ function D:OnEnable() -- called after PLAYER_LOGIN -- {{{
 
     FirstEnable = false;
 
-    D:CheckPlayer();
     T._CatchAllErrors = false;
 
 end -- // }}}
@@ -829,42 +828,6 @@ function D:OnDisable() -- When the addon is disabled by Ace
 
     LibStub("AceConfigRegistry-3.0"):NotifyChange(D.name);
     StaticPopup_Show("Decursive_OnDisableWarning");
-end
-
--- A list of some people I personally have problems with. Decursive will not function for them.
--- I don't want this kind of people benefiting from my hard work.
--- Those [Insert appropriate word here] are players you really don't want to meet. Ignorance is just not enough for them...
--- This list will only be used to disable Decursive for them, nothing else will ever happen.
-local BADPLAYERS = {
-    {"|A|r|a|d|o|s", "|C|o|n|s|e|i|l| |d|e|s| |O|m|b|r|e|s|", "|P|A|L|A|D|I|N|"}, -- This one gave me the most horrible experience I ever had in a pickup-group (At the Oculus). He is a terrible leader ; the kind of incompetent person who will accuse you of his own failures. All of this in a perverse and insidious way so he can turn others against you.
-
-
-    --{"|A|r|c|h|a|r|o|d|i|m|", "|L|e|s| |S|e|n|t|i|n|e|l|l|e|s|", "|M|A|G|E|"}, -- so I can test if it works.
-};
-local BADPLAYERS_READABLE = false;
-local GetRealmName = _G.GetRealmName;
-function D:CheckPlayer()
-
-    if not BADPLAYERS_READABLE then
-        BADPLAYERS_READABLE = {};
-        D:tcopycallback(BADPLAYERS_READABLE, BADPLAYERS, function (data) return (data:gsub("|", "")) end);
-        BADPLAYERS = nil;
-    end
-
-    for i=1, #BADPLAYERS_READABLE do
-        --D:Debug("TEST 1");
-        if BADPLAYERS_READABLE[i][1] == (self:UnitName("player")) then
-            --D:Debug("TEST 2 name ");
-            if BADPLAYERS_READABLE[i][2] == GetRealmName() then
-                --D:Debug("TEST 3 realmname");
-                if BADPLAYERS_READABLE[i][3] == (select(2, UnitClass("player"))) then
-                    --D:Debug("TEST 4 unitclass");
-                    D:Disable();
-                    break;
-                end
-            end
-        end
-    end
 end
 
 -------------------------------------------------------------------------------

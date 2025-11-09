@@ -290,8 +290,8 @@ function D:GetDefaultsSettings()
             -- those debuffs prevent us from curing the unit
             DebuffsToIgnore = {
                 [DS["Phase Shift"]]         = true,
-                [DS["Banish"]]                      = true,
-                [DS["Frost Trap Aura"]]             = true,
+                [DS["Banish"]]              = true,
+                [DS["Frost Trap Aura"]]     = true,
             },
 
             -- thoses debuffs are in fact buffs...
@@ -301,7 +301,7 @@ function D:GetDefaultsSettings()
                 [DS["MDREAMLESSSLEEP"]]     = true,
                 [DS["DCR_LOC_MINDVISION"]]  = true,
                 [DS["MUTATINGINJECTION"]]   = true,
-                [DS["Arcane Blast"]]                = true,
+                [DS["Arcane Blast"]]        = true,
             },
 
             DebuffAlwaysSkipList = {

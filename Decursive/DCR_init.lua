@@ -350,14 +350,67 @@ function D:OnInitialize() -- Called on ADDON_LOADED -- {{{
             Pet = false,
         }, --]]
       
+        -- Druids
+        [DS["SPELL_CURE_POISON"]] = {
+            Types = {DC.POISON},
+            IsBest = 0,
+            Pet = false,
+        },
+        -- Druids
+        [DS["SPELL_ABOLISH_POISON"]] = {
+            Types = {DC.POISON},
+            IsBest = 1,
+            Pet = false,
+        },
+        -- Druids
+        [DS["SPELL_CYCLONE"]] = {
+            Types = {DC.CHARMED},
+            IsBest = 0,
+            Pet = false,
+        },
+        -- Mages and Druids
+        [DS["SPELL_REMOVE_CURSE"]] = {
+            Types = {DC.CURSE},
+            IsBest = 0,
+            Pet = false,
+        },
+
+        -- Hunters http://www.wowhead.com/?spell=19801
+        [DS["SPELL_TRANQUILIZING_SHOT"]] = {
+            Types = {DC.ENEMYMAGIC},
+            IsBest = 0,
+            Pet = false,
+        },
+
+        -- Mages
+        [DS["SPELL_POLYMORPH"]] = {
+            Types = {DC.CHARMED},
+            IsBest = 0,
+            Pet = false,
+            Rank = 1,
+        },
+
+        -- Paladins
+        [DS["SPELL_PURIFY"]] = {
+            Types = {DC.MAGIC, DC.DISEASE, DC.POISON},
+            IsBest = 1,
+            Pet = false,
+        },
+        -- Paladins
+        [DS["SPELL_CLEANSE"]] = {
+            Types = {DC.MAGIC, DC.DISEASE, DC.POISON},
+            IsBest = 2,
+            Pet = false,
+        },
+
         -- Priests
-        [DS["SPELL_CURE_DISEASE"]]          = {
+        [DS["SPELL_CURE_DISEASE"]] = {
             Types = {DC.DISEASE},
             IsBest = 0,
             Pet = false,
         },
         -- Priests
-        [DS["SPELL_ABOLISH_DISEASE"]]       = {
+        [DS["SPELL_ABOLISH_DISEASE"]] = {
             Types = {DC.DISEASE},
             IsBest = 1,
             Pet = false,
@@ -375,73 +428,26 @@ function D:OnInitialize() -- Called on ADDON_LOADED -- {{{
             }
         },
         -- Priests
-        [DS["SPELL_DISPELL_MAGIC"]]         = {
+        [DS["SPELL_DISPELL_MAGIC"]] = {
             Types = {DC.MAGIC, DC.ENEMYMAGIC},
             IsBest = 1,
             Pet = false,
         },
-        -- Paladins
-        [DS["SPELL_PURIFY"]]                = {
-            Types = {DC.MAGIC, DC.DISEASE, DC.POISON},
-            IsBest = 1,
-            Pet = false,
-        },
-        -- Paladins
-        [DS["SPELL_CLEANSE"]]               = {
-            Types = {DC.MAGIC, DC.DISEASE, DC.POISON},
-            IsBest = 2,
-            Pet = false,
-        },
-        -- Druids
-        [DS["SPELL_CURE_POISON"]]           = {
-            Types = {DC.POISON},
-            IsBest = 0,
-            Pet = false,
-        },
-        -- Druids
-        [DS["SPELL_ABOLISH_POISON"]]        = {
-            Types = {DC.POISON},
-            IsBest = 1,
-            Pet = false,
-        },
-        -- Druids
-        [DS["SPELL_CYCLONE"]]       = {
-            Types = {DC.CHARMED},
-            IsBest = 0,
-            Pet = false,
-        },
-        -- Mages and Druids
-        [DS["SPELL_REMOVE_CURSE"]]   = {
-            Types = {DC.CURSE},
-            IsBest = 0,
-            Pet = false,
-        },
-        [DS["SPELL_REMOVE_LESSER_CURSE"]]   = {
-            Types = {DC.CURSE},
-            IsBest = 0,
-            Pet = false,
-        },
-        -- Mages
-        [DS["SPELL_POLYMORPH"]]      = {
-            Types = {DC.CHARMED},
-            IsBest = 0,
-            Pet = false,
-            Rank = 1,
-        },
+
         -- Shamans
-        [DS["SPELL_CURE_TOXINS"]]           = {
+        [DS["SPELL_CURE_TOXINS"]] = {
             Types = {DC.POISON, DC.DISEASE},
             IsBest = 1,
             Pet = false,
         },
         -- Shaman resto
-        [DS["CLEANSE_SPIRIT"]]              = {
+        [DS["CLEANSE_SPIRIT"]] = {
             Types = {DC.CURSE, DC.DISEASE, DC.POISON},
             IsBest = 3,
             Pet = false,
         },
         -- Shamans http://www.wowhead.com/?spell=51514
-        [DS["SPELL_HEX"]]    = {
+        [DS["SPELL_HEX"]] = {
             Types = {DC.CHARMED},
             IsBest = 0,
             Pet = false,
@@ -453,59 +459,45 @@ function D:OnInitialize() -- Called on ADDON_LOADED -- {{{
             IsBest = 0,
             Pet = false,
         }, --]=]
-        -- Hunters http://www.wowhead.com/?spell=19801
-        [DS["SPELL_TRANQUILIZING_SHOT"]]    = {
-            Types = {DC.ENEMYMAGIC},
-            IsBest = 0,
-            Pet = false,
-        },
         -- Warlock
-        [DS["SPELL_FEAR"]]    = {
+        [DS["SPELL_FEAR"]] = {
             Types = {DC.CHARMED},
             IsBest = 0,
             Pet = false,
             Rank = 1,
         },
         -- Warlock
-        [DS["PET_FEL_CAST"]]                = {
+        [DS["PET_FEL_CAST"]] = {
             Types = {DC.MAGIC, DC.ENEMYMAGIC},
             IsBest = 1,
             Pet = true,
         },
+        --[=[
         -- Warlock
-        [DS["PET_DOOM_CAST"]]               = {
+        [DS["PET_DOOM_CAST"]] = {
             Types = {DC.MAGIC, DC.ENEMYMAGIC},
             IsBest = 1,
             Pet = true,
         },
+        ]=]
     };
 
-    -- WoW 4.0 changes {{{
-
-    if T._tocversion == 40000 then
-        DC.SpellsToUse[DS["PET_FEL_CAST"]]              = {
-            Types = {DC.ENEMYMAGIC},
-            IsBest = 0,
-            Pet = true,
-        };
-        -- Warlocks
-        DC.SpellsToUse[DS["SPELL_SINGE_MAGIC"]]         = {
-            Types = {DC.MAGIC},
-            IsBest = 0,
-            Pet = true,
-        };
-        -- Warlock
-        DC.SpellsToUse[DS["SPELL_FEAR"]]    = {
-            Types = {DC.CHARMED},
-            IsBest = 0,
-            Pet = false,
-        };
+    -- Implementation differences per realm
+    if C_Player:IsHero() then
         -- Mages
-        DC.SpellsToUse[DS["SPELL_POLYMORPH"]]      = {
-            Types = {DC.CHARMED},
+        DC.SpellsToUse[DS["SPELL_REMOVE_LESSER_CURSE"]] = {
+            Types = {DC.CURSE},
             IsBest = 0,
             Pet = false,
-        };
+        }
+    elseif C_Player:IsDefaultClass() then
+        -- Paladins
+        DC.SpellsToUse[DS["SPELL_PURIFY"]] = {
+            Types = {DC.DISEASE, DC.POISON},
+            IsBest = 1,
+            Pet = false,
+        }
+    elseif C_Player:IsCustomClass() then
     end
     
     -- }}}
@@ -675,7 +667,6 @@ function D:OnEnable() -- called after PLAYER_LOGIN -- {{{
 
     FirstEnable = false;
 
-    D:CheckPlayer();
     T._CatchAllErrors = false;
 
 end -- // }}}
@@ -837,42 +828,6 @@ function D:OnDisable() -- When the addon is disabled by Ace
 
     LibStub("AceConfigRegistry-3.0"):NotifyChange(D.name);
     StaticPopup_Show("Decursive_OnDisableWarning");
-end
-
--- A list of some people I personally have problems with. Decursive will not function for them.
--- I don't want this kind of people benefiting from my hard work.
--- Those [Insert appropriate word here] are players you really don't want to meet. Ignorance is just not enough for them...
--- This list will only be used to disable Decursive for them, nothing else will ever happen.
-local BADPLAYERS = {
-    {"|A|r|a|d|o|s", "|C|o|n|s|e|i|l| |d|e|s| |O|m|b|r|e|s|", "|P|A|L|A|D|I|N|"}, -- This one gave me the most horrible experience I ever had in a pickup-group (At the Oculus). He is a terrible leader ; the kind of incompetent person who will accuse you of his own failures. All of this in a perverse and insidious way so he can turn others against you.
-
-
-    --{"|A|r|c|h|a|r|o|d|i|m|", "|L|e|s| |S|e|n|t|i|n|e|l|l|e|s|", "|M|A|G|E|"}, -- so I can test if it works.
-};
-local BADPLAYERS_READABLE = false;
-local GetRealmName = _G.GetRealmName;
-function D:CheckPlayer()
-
-    if not BADPLAYERS_READABLE then
-        BADPLAYERS_READABLE = {};
-        D:tcopycallback(BADPLAYERS_READABLE, BADPLAYERS, function (data) return (data:gsub("|", "")) end);
-        BADPLAYERS = nil;
-    end
-
-    for i=1, #BADPLAYERS_READABLE do
-        --D:Debug("TEST 1");
-        if BADPLAYERS_READABLE[i][1] == (self:UnitName("player")) then
-            --D:Debug("TEST 2 name ");
-            if BADPLAYERS_READABLE[i][2] == GetRealmName() then
-                --D:Debug("TEST 3 realmname");
-                if BADPLAYERS_READABLE[i][3] == (select(2, UnitClass("player"))) then
-                    --D:Debug("TEST 4 unitclass");
-                    D:Disable();
-                    break;
-                end
-            end
-        end
-    end
 end
 
 -------------------------------------------------------------------------------
@@ -1088,65 +1043,114 @@ end --}}}
 function D:GetSpellsTranslations(FromDIAG)
     local GetSpellInfo = _G.GetSpellInfo;
 
-    local Spells = {};
+    -- Spell IDs that are the same across all versions of the game
+    local Spells = {
+        ["DREAMLESSSLEEP"] = { 15822, },
+        ["GDREAMLESSSLEEP"] = { 24360, },
+        ["MDREAMLESSSLEEP"] = { 28504, },
+        ["ANCIENTHYSTERIA"] = { 19372, },
+        ["IGNITE"] = { 19659, },
+        ["TAINTEDMIND"] = { 16567, },
+        ["MAGMASHAKLES"] = { 19496, },
+        ["CRIPLES"] = { 33787, },
+        ["DUSTCLOUD"] = { 26072, },
+        ["WIDOWSEMBRACE"] = { 28732, },
+        ["SONICBURST"] = { 39052, },
+        ["DELUSIONOFJINDO"] = { 24306, },
+        ["MUTATINGINJECTION"] = { 28169, },
+        ['TALENT_ARCANE_POWER'] = { 12042, }, --temp to test
+        ['DARK_MATTER'] = { 59868, }, --temp to test
+        --['YOGGG_DOMINATE_MIND'] = { 63042, }, --temp to test
+        --['STALVAN_CURSE'] = { 3105, }, --temp to test
+     }
 
+    if C_Player:IsHero() then
+        local heroSpells = {
+            ["SPELL_POLYMORPH"] = { 118, }, -- mage
+            ["SPELL_CYCLONE"] = { 33786, }, -- druid
+            ["SPELL_CURE_DISEASE"] = { 528, },
+            ["SPELL_ABOLISH_DISEASE"] = { 552, },
+            ["SPELL_PURIFY"] = { 1152, }, -- paladins
+            ["SPELL_CLEANSE"] = { 4987, },
+            ["SPELL_DISPELL_MAGIC"] = { 527, 988, },
+            ["SPELL_CURE_TOXINS"] = { 526, }, -- shamans
+            ["SPELL_CURE_POISON"] = { 8946, },
+            ["SPELL_ABOLISH_POISON"] = { 2893, },
+            ["SPELL_REMOVE_LESSER_CURSE"] = { 475, }, -- Mages
+            ["SPELL_REMOVE_CURSE"] = { 2782, }, -- Druids
+            ['SPELL_TRANQUILIZING_SHOT'] = { 19801, }, -- Hunter
+            ['SPELL_HEX'] = { 51514, }, -- shamans
+            ["CLEANSE_SPIRIT"] = { 51886, },
+            ["SPELL_PURGE"] = { 370, 8012, },
+            ["PET_FEL_CAST"] = { 19505, 19731, 19734, 19736, 27276, 27277,},
+            ["SPELL_FEAR"] = { 5782 },
+            -- Same id as priest dispel magic?? ["PET_DOOM_CAST"] = { 527, 988, },
+            ["CURSEOFTONGUES"] = { 1714, 11719, },
+            ["DCR_LOC_SILENCE"] = { 15487, },
+            ["DCR_LOC_MINDVISION"] = { 2096, 10909, },
+            ['Phase Shift'] = { 4511, },
+            ['Banish'] = { 710, 18647, },
+            ['Frost Trap Aura'] = { 13810, },
+            ['Arcane Blast'] = { 30451, },
+            ['Prowl'] = { 5215, 6783, 9913, 24450, },
+            ['Stealth'] = { 1784, 1785, 1786, 1787, },
+            ['Shadowmeld'] = { 58984, },
+            ['Invisibility'] = { 66, },
+            ['Lesser Invisibility'] = { 7870, },
+            ['Ice Armor'] = { 7302, 7320, 10219, 10220, 27124, },
+            ['Unstable Affliction'] = { 30108, 30404, 30405, },
+            ['Dampen Magic'] = { 604, },
+            ['Amplify Magic'] = { 1008, },
+            ['TALENT_BODY_AND_SOUL'] = { 64129, 65081, },
+       }
+       for k,v in pairs(heroSpells) do Spells[k] = v end
 
-    Spells = {
-        ["SPELL_POLYMORPH"]             = {     118,                                     },
-        ["SPELL_CYCLONE"]               = {     33786,                                   },
-        ["SPELL_CURE_DISEASE"]          = {     528,                                     },
-        ["SPELL_ABOLISH_DISEASE"]       = {     552,                                     },
-        ["SPELL_PURIFY"]                = {     1152,                                    }, -- paladins
-        ["SPELL_CLEANSE"]               = {     4987,                                    },
-        ["SPELL_DISPELL_MAGIC"]         = {     527, 988,                                },
-        ["SPELL_CURE_TOXINS"]           = {     526,                                     }, -- shamans
-        ["SPELL_CURE_POISON"]           = {     8946,                                    },
-        ["SPELL_ABOLISH_POISON"]        = {     2893,                                    },
-        ["SPELL_REMOVE_LESSER_CURSE"]   = {     475,                                     }, -- Mages
-        ["SPELL_REMOVE_CURSE"]          = {     2782,                                    }, -- Druids
-        ['SPELL_TRANQUILIZING_SHOT']    = {     19801,                                   },
-        ['SPELL_HEX']                   = {     51514,                                   }, -- shamans
-        ["CLEANSE_SPIRIT"]              = {     51886,                                   },
-        ["SPELL_PURGE"]                 = {     370, 8012,                               },
-        ["PET_FEL_CAST"]                = {     19505, 19731, 19734, 19736, 27276, 27277,},
-        ["SPELL_FEAR"]                  = {     5782                                     },
-        ["PET_DOOM_CAST"]               = {     527, 988,                                },
-        ["CURSEOFTONGUES"]              = {     1714, 11719,                             },
-        ["DCR_LOC_SILENCE"]             = {     15487,                                   },
-        ["DCR_LOC_MINDVISION"]          = {     2096, 10909,                             },
-        ["DREAMLESSSLEEP"]              = {     15822,                                   },
-        ["GDREAMLESSSLEEP"]             = {     24360,                                   },
-        ["MDREAMLESSSLEEP"]             = {     28504,                                   },
-        ["ANCIENTHYSTERIA"]             = {     19372,                                   },
-        ["IGNITE"]                      = {     19659,                                   },
-        ["TAINTEDMIND"]                 = {     16567,                                   },
-        ["MAGMASHAKLES"]                = {     19496,                                   },
-        ["CRIPLES"]                     = {     33787,                                   },
-        ["DUSTCLOUD"]                   = {     26072,                                   },
-        ["WIDOWSEMBRACE"]               = {     28732,                                   },
-        ["SONICBURST"]                  = {     39052,                                   },
-        ["DELUSIONOFJINDO"]             = {     24306,                                   },
-        ["MUTATINGINJECTION"]           = {     28169,                                   },
-        ['Phase Shift']                 = {     4511,                                    },
-        ['Banish']                      = {     710, 18647,                              },
-        ['Frost Trap Aura']             = {     13810,                                   },
-        ['Arcane Blast']                = {     30451,                                   },
-        ['Prowl']                       = {     5215, 6783, 9913, 24450,                 },
-        ['Stealth']                     = {     1784, 1785, 1786, 1787,                  },
-        ['Shadowmeld']                  = {     58984,                                   },
-        ['Invisibility']                = {     66,                                      },
-        ['Lesser Invisibility']         = {     7870,                                    },
-        ['Ice Armor']                   = {     7302, 7320, 10219, 10220, 27124,         },
-        ['Unstable Affliction']         = {     30108, 30404, 30405,                     },
-        ['Dampen Magic']                = {     604,                                     },
-        ['Amplify Magic']               = {     1008,                                    },
-        ['TALENT_BODY_AND_SOUL']        = {     64129, 65081,                            },
-        ['TALENT_ARCANE_POWER']         = {     12042,                                   }, --temp to test
-        ['DARK_MATTER']                 = {     59868,                                   }, --temp to test
-        --['YOGGG_DOMINATE_MIND']       = {     63042,                                   }, --temp to test
-        --['STALVAN_CURSE']             = {     3105,                                    }, --temp to test
-    };
+    elseif C_Player:IsDefaultClass() then
+        local defaultSpells = {
+            ["SPELL_POLYMORPH"] = { 1100118, }, -- mage
+            ["SPELL_CYCLONE"] = { 1133786, }, -- druid
+            ["SPELL_CURE_DISEASE"] = { 1100528, }, -- priest
+            ["SPELL_ABOLISH_DISEASE"] = { 1100552, }, -- priest
+            ["SPELL_PURIFY"] = { 1101152, }, -- paladin
+            ["SPELL_CLEANSE"] = { 1104987, }, -- paladin
+            ["SPELL_DISPELL_MAGIC"] = { 1100527, 1100988, }, -- priest
+            ["SPELL_CURE_TOXINS"] = { 1100526, }, -- shaman
+            ["SPELL_CURE_POISON"] = { 1108946, }, -- druid
+            ["SPELL_ABOLISH_POISON"] = { 1102893, }, -- druid
+            ["SPELL_REMOVE_CURSE"] = { 1102782, 1100475, }, -- druid, mage
+            ['SPELL_TRANQUILIZING_SHOT'] = { 1119801, }, -- hunter
+            ['SPELL_HEX'] = { 1151514, }, -- shaman
+            ["CLEANSE_SPIRIT"] = { 1151886, }, -- shaman
+            ["SPELL_PURGE"] = { 1100370, 1108012, }, -- shaman
+            ["PET_FEL_CAST"] = { 1119505, 1119731, 1119734, 1119736, 1127276, 1127277,}, -- warlock
+            ["SPELL_FEAR"] = { 1105782 }, -- warlock
+            -- Same id as priest dispel magic?? ["PET_DOOM_CAST"] = { 527, 988, }, -- warlock
+            ["CURSEOFTONGUES"] = { 1101714, 11719, },
+            ["DCR_LOC_SILENCE"] = { 1115487, },
+            ["DCR_LOC_MINDVISION"] = { 1102096, 1110909, },
+            ['Phase Shift'] = { 1104511, },
+            ['Banish'] = { 1100710, 1118647, },
+            ['Frost Trap Aura'] = { 1113810, },
+            ['Arcane Blast'] = { 1130451, },
+            ['Prowl'] = { 1105215, 1106783, 1109913, 11024450, },
+            ['Stealth'] = { 1101784, 1101785, 1101786, 1101787, },
+            ['Shadowmeld'] = { 1158984, },
+            ['Invisibility'] = { 1100066, },
+            ['Lesser Invisibility'] = { 1107870, },
+            ['Ice Armor'] = { 1107302, 1107320, 1110219, 1110220, 1127124, },
+            ['Unstable Affliction'] = { 1130108, 1130404, 1130405, },
+            ['Dampen Magic'] = { 1100604, },
+            ['Amplify Magic'] = { 1101008, },
+            ['TALENT_BODY_AND_SOUL'] = { 1164127, 1164129, },
+        }
+        for k,v in pairs(defaultSpells) do Spells[k] = v end
 
+    elseif C_Player:IsCustomClass() then -- CoA
+        Spells = {}
+        print("CoA is not currently supported.  Spell IDs need to be set up")
+    else
+        self:Debug("Player class type cannot be determined or is not set up.  Aborting Spell Table setup")
+    end
     DC.ttest = Spells;
 
 

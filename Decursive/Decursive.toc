@@ -18,7 +18,7 @@
 
 ## SavedVariables: DecursiveDB
 
-## Version: 2.5.1-6-gd3885c5
+## Version: Asc-1.0.0 (orig 2.5.1-6-gd3885c5)
 ## Author: Archarodim
 
 ## X-License: All Rights Reserved
